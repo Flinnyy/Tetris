@@ -1,8 +1,10 @@
 # Tetris
 
 Browser based tetris created using HTML, CSS and JS. 
+
 Built using the video guide by Ania Kubow - https://www.youtube.com/watch?v=w1JJfK09ujQ&ab_channel=CodewithAniaKub%C3%B3w
-with additional functionality and styling added after following and understanding the key concepts that allows the game to work.
+
+With additional functionality and styling added after following and understanding the key concepts that allows the game to work.
 
 **Additional Functionality implemented:**
 - Game Over message on game end.
