@@ -1,12 +1,14 @@
 const grid = document.querySelector('.grid')
 const scoreDisplay = document.querySelector('#score')
 const startBtn = document.querySelector('#start_button')
+const highScoreText = document.querySelector('#highScore')             
 const width = 10
 let nextRandom = 0
 let timerId = 0
 let lineSound = new Audio('http://www.utc.fr/si28/ProjetsUpload/P2006_si28p004/flash_puzzle/sons/rush/mush-up.wav')
 let overSound = new Audio('http://www.mario-museum.net/sons/smb_gameover.wav')
 let score = 0;
+let highScore = 0;
 
 const colors = [
     '#FF9933',
@@ -265,6 +267,7 @@ function gameOver() {
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
         document.querySelector('#gameOver').style.display = "block"
         clearInterval(timerId)
+        newHighScore()
         isGameOver = true
         overSound.play()
         startBtn.innerHTML = "Replay"
@@ -280,4 +283,12 @@ function clearBlocks() {
     takenSquares.forEach(square => {
         square.classList.add('taken')
     })
+}
+
+
+function newHighScore() {
+    if (score > highScore){
+        highScore = score
+        highScoreText.innerHTML = highScore
+    }
 }
