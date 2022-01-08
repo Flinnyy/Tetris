@@ -9,6 +9,7 @@ let lineSound = new Audio('http://www.utc.fr/si28/ProjetsUpload/P2006_si28p004/f
 let overSound = new Audio('http://www.mario-museum.net/sons/smb_gameover.wav')
 let score = 0;
 let highScore = 0;
+let gameSpeed = 1000;
 
 const colors = [
     '#FF9933',
@@ -220,7 +221,7 @@ startBtn.addEventListener('click', () => {
         score = 0
         scoreDisplay.innerHTML = score
         draw()
-        timerId = setInterval(moveDown, 1000)
+        timerId = setInterval(moveDown, gameSpeed)
         nextRandom = Math.floor(Math.random() * theTetrominoes.length)
         displayShape()
     } else if (timerId) {
@@ -231,7 +232,7 @@ startBtn.addEventListener('click', () => {
         startBtn.innerHTML = "Pause"
         document.querySelector('#gameOver').style.display = "none"
         draw()
-        timerId = setInterval(moveDown, 1000)
+        timerId = setInterval(moveDown, gameSpeed)
         nextRandom = Math.floor(Math.random() * theTetrominoes.length)
         displayShape()
     }
@@ -258,6 +259,7 @@ function addScore() {
         squares.forEach(cell => grid.appendChild(cell))
         //play sound on line clear
         lineSound.play()
+        changeSpeed()
         }
     }
 }
@@ -271,6 +273,7 @@ function gameOver() {
         isGameOver = true
         overSound.play()
         startBtn.innerHTML = "Replay"
+        gameSpeed = 1000
     }
 }
 
@@ -290,5 +293,21 @@ function newHighScore() {
     if (score > highScore){
         highScore = score
         highScoreText.innerHTML = highScore
+    }
+}
+
+// Function to increase the speed for every 20 points scored. Capping fall speed at 132ms
+function changeSpeed() {
+    if (score % 20 === 0){
+        if (gameSpeed > 200){
+            gameSpeed *= 0.66
+            clearInterval(timerId)
+            timerId = setInterval(moveDown, gameSpeed)
+        } else {
+            clearInterval(timerId)
+            timerId = setInterval(moveDown, gameSpeed)
+        }
+        clearInterval(timerId)
+        timerId = setInterval(moveDown, gameSpeed)
     }
 }
